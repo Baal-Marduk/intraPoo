@@ -1,0 +1,203 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #31312f;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: 300px;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+  #index-banner{
+      margin-top: 2%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+
+.main-title{
+letter-spacing: 35px;
+    font-weight: 200;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 50px;
+}
+
+.sub-title{
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.sub-main-title{
+    font-size: 30px;
+    letter-spacing: 15px;
+    font-weight: 300;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}
+
+::placeholder {
+  color: white;
+    opacity: 1;
+}
+
+.barre-google label{
+    color: white;
+    margin-left: -24%;
+}
+
+.barre-google #search {
+    border-bottom: 1px solid white;
+}
+
+.hero-box{
+    background-color: rgba(0, 0, 0, 0.40);
+}
+
+.logo{
+    height: auto;
+    width:125px;
+    margin-top: -10px;
+}
+
+.message-jour-box{
+    background-color: rgba(0, 0, 0, 0.50);
+
+}
+
+.message-jour p{
+    text-align: justify;
+}
+
+.input-field input[type=search]:focus {
+    background-color: rgba(255, 255, 255, 0);
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.input-field input[type=search]:focus + label i,
+.input-field input[type=search]:focus ~ .mdi-navigation-close,
+.input-field input[type=search]:focus ~ .material-icons {
+    color: #f7fffc;
+}
+
+.parallax-container{
+    background-color: rgba(0, 0, 0, 0.50);
+}
+
+
+
+
+
+.text_editor {
+    border: none;
+    background: rgba(221, 221, 221, 0);
+    color: #ffffff;
+    width: 200px;
+    cursor: text;
+    font-size: 28px;
+}
+
+.news_edition{
+    color: #000000;
+    cursor: text;
+    height: 200px;
+    justify-content: center;
+    text-align: justify;
+    display: block;
+}
+
+#quote_input{
+    font-size: 20px;
+}
+
+.edit-icon{
+    position: relative;
+    cursor: pointer;
+    font-size: 35px;
+}
+.cancel-icon{
+
+    display: none;
+    cursor: pointer;
+    font-size: 35px;
+}
+
+.check-icon{
+
+    cursor: pointer;
+    display: none;
+    font-size: 35px;
+}
+
+.info-edit{
+    text-justify: auto;
+}
+#info_input{
+    line-height: 1.5;
+}
+
+
+
+
+.info-edit{
+    color: black;
+    height: 100px;
+}
+
+
+.delete-doc-btn{
+    margin-left: 10px;
+}

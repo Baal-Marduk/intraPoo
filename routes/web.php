@@ -11,19 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/documents', function () {
-    return view('documents');
-});
-
-Route::get('/annuaire', function () {
-    return view('annuaire');
-});
 
 
+
+Route::get('/', 'WelcomeController@show');
+Route::get('/annuaire', 'UserController@show');
+Route::get('/documents', 'DocumentsController@show');
 
 Auth::routes();
 
