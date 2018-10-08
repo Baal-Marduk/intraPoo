@@ -13,11 +13,23 @@
 
 
 
-
+// VIEWS 
 Route::get('/', 'WelcomeController@show');
 Route::get('/annuaire', 'UserController@show');
 Route::get('/documents', 'DocumentsController@show');
 
+//Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+// AUTH
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+// ANNUAIRE
+Route::post('/userCreate', 'UserController@create');
+Route::put('/userUpdate', 'UserController@update');
+Route::post('/userDelete', 'UserController@delete');
+
+
+

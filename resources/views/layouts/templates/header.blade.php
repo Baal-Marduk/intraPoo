@@ -33,13 +33,8 @@
                 <li><a href="http://192.168.15.22:8080/share/page/" target="_blank">Alfresco</a></li>
                 <li><a href="http://192.168.15.51:8085/support/index.php" target="_blank">Ticketing</a></li>
                 <li><a href="http://192.168.15.107/" target="_blank">Site DS</a></li>
-                <?php if (isset($_SESSION['user_id'])){
-                    echo "<li><a class=\"\" href=\"script/logout.php\"><i
-                                class=\"material-icons right deep-orange-text\">cancel</i>Déconnexion</a></li>";
-                }else {
-                    echo "<li><a class=\"modal-trigger\" href=\"#login_modal\"><i
-                                class=\"material-icons right deep-orange-text\">lock</i>Admin</a></li>";
-                } ?>
+                <li><a class="modal-trigger" href="#login_modal"><i class="material-icons right deep-orange-text">lock</i>Admin</a></li>
+               
 
             </ul>
             <ul class="side-nav" id="mobile-demo">
@@ -61,6 +56,30 @@
             </ul>
         </div>
     </nav>
+</div>
+<div id="login_modal" class="modal">
+<script src="js/scripts.js"></script>
+    <div class="container modal-content">
+        <h4>ADMINISTRATION</h4>
+        <p>Entrez vos identifiants de connexion</p>
+        <form action="" method="post" id="login_form">
+            <div class=" input-field row">
+                <i class="material-icons prefix">person</i>
+                <input id="username" type="text" class="" name="username" required>
+                <label for="username" >Utilisateur</label>
+            </div>
+            <div class="input-field row">
+                <i class="material-icons prefix">lock</i>
+                <input id="password" type="password" class="" name="password" required>
+                <label for="password">Mot de passe</label>
+            </div>
+            <div class="modal-footer">
+                <a href="" class="btn modal-close waves-effect waves-blue indigo" >Annuler</a>
+                <a href="" target="_self" name="submit" class="btn modal-close waves-effect waves-orange deep-orange" type="submit"  id="login_submit" >Connexion</a>
+            </div>
+            <input type='hidden' name='token' value="" />
+    </form>
+    </div>
 </div>
 <body>
 

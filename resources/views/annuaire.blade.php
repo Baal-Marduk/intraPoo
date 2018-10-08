@@ -1,7 +1,6 @@
 @extends('layouts.template')
 
 @section('content')
-
 <div class="parallax-container valign-wrapper annuaire-hero-box">
         <div class="section no-pad-bot">
             <div class="container">
@@ -14,11 +13,8 @@
                             <meta charset="UTF-8">
                             <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
                             <meta http-equiv="X-UA-Compatible" content="ie=edge">
-                            <title>Document</title>
+                            <title>Annuaire</title>
                         </head>
-                        <body>
-
-                        </body>
                         </html>
                     </h5>
                 </div>
@@ -50,7 +46,7 @@
                         <td>{{ $user->nom }}</td>
                         <td>{{ $user->telephone }}</td>
                         <td>{{ $user->interne }}</td>
-                        <td><a  href='#' class='indigo-text'>{{ $user->email }}"</a></td>
+                        <td><a  href='#' class='indigo-text'>{{ $user->email }}</a></td>
                         <td style='display: none' id='user_id' class='user_id'>{{ $user->id }}</td>
                         <td>{{ $user->site }}</td>
                         <td>{{ $user->service }}</td>
@@ -62,28 +58,12 @@
                             <i class="material-icons red-text delete_user" id=''>delete</i>
                             </a>
                         </td>
+                        <td><a href="#edit_modal" class="secondary-content modal-trigger">
+                            <i class="material-icons indigo-text" id=''>edit</i>
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
-                <!-- <tr >
-                    <td>"prenom"</td>
-                    <td>"nom"</td>
-                    <td>" telephone "</td>
-                    <td>" interne"</td>
-                    <td><a  href='#' class='indigo-text'>"email"</a></td>
-                    <td style='display: none' id='user_id' class='user_id'>"id"</td>
-                    <td>" site "</td>
-                    <td>" service"</td>
-                    <td><a href="" class="secondary-content modal-trigger">
-                        <i class="material-icons indigo-text " id='' style='visibility: hidden;'>edit</i>
-                        </a>
-                    </td>
-                    <td><a href="#delete_modal" class="secondary-content modal-trigger">
-                        <i class="material-icons red-text delete_user" id=''>delete</i>
-                        </a>
-                    </td>
-                </tr> -->
-                
-                    
                     
                     </tbody>
                 </table>
@@ -101,16 +81,15 @@
         <div class="modal-content">
             <h4>Suppression d'un collaborateur</h4>
             <p>Etes vous sur de vouloir supprimer cette entrée ?</p>
-        </div>
-        <div class="modal-footer">
-            <form method="post" action="script/user_delete.php" enctype="multipart/form-data" id="delete_form"
-                  class="data-form-delete">
-                <input id="user_id" type="text" name="id" hidden>
+            <form method="post" action="/userDelete" enctype="multipart/form-data" id="delete_form" class="data-form-delete">
+                <input id="input_id" type="text" name="id" hidden>
+                @csrf
+                    <div class="modal-footer">
+                    <a href="#" class="btn modal-close waves-effect ">Annuler</a>
+                    <button type="submit" class="modal-action  waves-effect btn red " name="action" id="delete_submit">Supprimer<i
+                                class="material-icons right">delete</i></button>
+                    </div>
             </form>
-            <a href="#" class="btn modal-close waves-effect ">Annuler</a>
-            <!--<button class="modal-close waves-effect btn red">Annuler<i class="material-icons right bottom-sheet">cancel</i></button>-->
-            <button type="submit" class="modal-action  waves-effect btn red " name="action" id="delete_submit">Supprimer<i
-                        class="material-icons right">delete</i></button>
         </div>
     </div>
     <!-- AJOUT ANNUAIRE -->
@@ -118,7 +97,8 @@
         <div class="modal-content">
             <h5>Ajouter un collaborateur</h5>
             <div class="row">
-                <form method="post" action="script/user_add.php" enctype="multipart/form-data" id="useradd">
+                <form method="post" action="/userCreate" enctype="multipart/form-data" id="useradd">
+                    @csrf
                     <div class="row">
                         <div class="row">
                             <div class="input-field col s2">
@@ -185,9 +165,8 @@
         <div class="modal-content">
             <h5>Editer un collaborateur</h5>
             <div class="row">
-                <form method="post" action="script/user_edit.php" enctype="multipart/form-data" id="useredit"
-                      class="data-form">
-                    <div class="row">
+                <form method="post" action="/userUpdate" enctype="multipart/form-data" id="useredit">
+                    <div class="row data-form">
                         <div class="row">
                             <div class="input-field col s2">
                                 <input id="prenom" type="text" class="validate" name="prenom">
@@ -237,14 +216,16 @@
                             </div>
                         </div>
 
-                    </div>
+                    
 
                     <div class="modal-footer">
                         <a href="#" class="btn modal-close waves-effect waves-red">Annuler</a>
                         <!--<button class="modal-close waves-effect btn red">Annuler<i class="material-icons right bottom-sheet">cancel</i></button>-->
-                        <button type="submit" class="modal-action  waves-effect btn green " name="action">Editer<i
+                        <button type="submit" class="modal-action  waves-effect btn green " name="action" id="user_edit">Editer<i
                                     class="material-icons right">edit</i></button>
                     </div>
+                    </div>
+                    @csrf
                 </form>
             </div>
 
@@ -252,6 +233,53 @@
     </div>
 
 </div>
+<script>
+
+//auto remplissage form
+$(document).ready(function(){
+        $("td", this).on("click", function () {
+            var tds = $(this).parents("tr").find("td");
+            $.each(tds, function (i, v) {
+                $($(".data-form input")[i]).val($(v).text());
+            });
+
+            Materialize.updateTextFields();
+        });
+
+    $("#useredit").submit(function(e){
+
+        e.preventDefault();
+        var donnees = $(this).serialize(); 
+
+            $.ajaxSetup({
+            headers: {'X-CSRF-TOKEN': $('input[name="_token"]').attr('content')}
+            });
+
+            $.ajax({    
+                        type: "PUT",
+                        url: '/userUpdate',
+                        data : donnees,
+
+                        success: function(response){
+                            location.reload();
+                            console.log(response);
+                            var status = response.status;
+                            var message = response.message;
+                            Toast.show(message,status);
+                             
+                        },
+                        error: function(response) {
+                            var status = response.status;
+                            var message = response.message;
+                            }
+            });
+            
+        });
+    });
+
+
+
+</script>
 
 
     @endsection 
