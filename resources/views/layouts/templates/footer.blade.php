@@ -9,7 +9,6 @@
                 <h5 class="white-text">Intranet DS</h5>
                 <p class="grey-text text-lighten-4">Cette page d'accueil a pour but de réunir toutes les données et
                     liens nécessaires aux collaborateurs DS.</p>
-
             </div>
             <div class="col l3 s12">
                 <h5 class="white-text">Liens utiles</h5>
@@ -43,6 +42,29 @@
 
 {!! MaterializeCSS::include_js() !!}
 <script src="{{ asset('js/script.js') }}"></script>
+
+    
+<!-- @if(Session::has('toast'))
+
+<script>
+
+<?php //echo ' msg = "'.json_encode($_SESSION['toast']).'";'; ?>
+Materialize.toast({html: msg});
+delete msg;
+</script>
+@endif -->
+
+@php
+if (isset($_SESSION['toast'])) {
+$message = $_SESSION['toast'];
+unset($_SESSION['toast']);
+unset($message);
+echo "
+<script type=\"text/javascript\">document.onload = Materialize.toast(\"".$message."\",5000);</script>
+";
+}
+@endphp
+
 
 </body>
 </html>

@@ -3,7 +3,7 @@ $(document).ready(function (){
     //INIT//
     $('.button-collapse').sideNav();
     $('.parallax').parallax();
-  
+
     //MODALS//
     $('#doc_modal').modal();
     $('#dir_modal').modal();
@@ -11,6 +11,7 @@ $(document).ready(function (){
     $('#edit_modal').modal();
     $('#delete_modal').modal();
     $('#news_modal').modal();
+    $('#news_modal_delete').modal();
     $('#quote_modal').modal();
     $('#info_modal').modal();
     $('#login_modal').modal();
@@ -28,6 +29,13 @@ $(document).ready(function (){
     // recupération de l'id pour supression collaborateur
     $('.delete_user', this).on('click',function () {
         var id = $(this).parents("tr").find("#user_id");
+        $(function () {
+            $('#input_id').val(id.text());
+        });
+    });
+
+    $('.delete_news', this).on('click',function () {
+        var id = $(this).parent().find("#news_id");
         $(function () {
             $('#input_id').val(id.text());
         });

@@ -23,7 +23,7 @@ Route::get('/documents', 'DocumentsController@show');
 
 
 // AUTH
-Auth::routes();
+//Auth::routes();
 
 
 // ANNUAIRE
@@ -31,5 +31,17 @@ Route::post('/userCreate', 'UserController@create');
 Route::put('/userUpdate', 'UserController@update');
 Route::post('/userDelete', 'UserController@delete');
 
+// WELCOME
+Route::post('/newsCreate', 'WelcomeController@createNews');
+Route::put('/newsUpdate', 'WelcomeController@updateNews');
+Route::post('/newsDelete', 'WelcomeController@deleteNews');
+
+//LOGIN
+Route::post('/login','LoginController@authenticate');
+Route::post('/logout','LoginController@logout');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

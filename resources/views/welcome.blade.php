@@ -29,16 +29,31 @@
             <!--   Icon Section   -->
             <div class="row message-jour">
                 <h2 class="center light sub-main-title">Actualités</h2>
-
-                <?php //include ('script/news.php'); ?>
-
+                @foreach ($news as $new)
+                <div class="col s3 center offset-s1">
+                <div class="row news_data">
+                    <a href="#news_modal" class="secondary-content modal-trigger right news_edit_btn" >
+                            <i class="material-icons indigo-text">edit</i>
+                    </a>
+                    <a href="#news_modal_delete" class="secondary-content modal-trigger right delete_news">
+                            <i class="material-icons red-text" id=''>delete</i>
+                    </a>
+                    <h4 class="input_data">{{ $new->title }}</h4>
+                    
+                    <p class="editable_news input_data" id="news_edit">{{ $new->content }}</p>
+                    <p class=" left">{{ date_format(date_create($new->created_at),'d/m/y') }}</p>
+                    <div class=" right input_data chip">{{ $new->author }}</div>
+                    <p  id="news_id" class="input_data" hidden>{{ $new->id }}</p>
+                </div>
+                </div>
+                @endforeach
             </div>
             <br>
             <br>
         </div>
     </div>
 
-    <div class="parallax-container valign-wrapper message-jour-box">
+    <!-- <div class="parallax-container valign-wrapper message-jour-box">
         <div class="section no-pad-bot">
             <div class="container">
                 <div class="row center">
@@ -63,7 +78,7 @@
             <br>
         </div>
     </div>
-    </div>
+    </div> -->
 
     <div class="parallax-container valign-wrapper">
         <div class="section no-pad-bot">
@@ -81,65 +96,46 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating indigo tooltipped modal-trigger" data-position="top" data-tooltip="Ajouter une actu"
+            <li><a class="btn-floating indigo darken-2 tooltipped modal-trigger" data-position="top" data-tooltip="Ajouter une actu"
                    href="#news_modal"><i class="material-icons">add</i></a></li>
-            <li><a class="btn-floating indigo darken-1 tooltipped modal-trigger" data-position="top"
-                   data-tooltip="Editer la phrase du jour" href="#quote_modal"><i
-                            class="material-icons">format_quote</i></a></li>
             <li><a class="btn-floating indigo darken-2 tooltipped modal-trigger" data-position="top" data-tooltip="Editer les infos"
                    href="#info_modal"><i class="material-icons">info_outline</i></a></li>
         </ul>
     </div>
 
-    <!-- MODAL ACTU-->
+    <!-- MODAL CREATE ACTU-->
     <div id="news_modal" class="modal bottom-sheet">
         <div class="modal-content">
             <h5>Ajouter une actualité</h5>
             <div class="row">
-                <form method="post" action="script/news_add.php" enctype="multipart/form-data" id="news_add">
+                <form method="post" action="/newsCreate" enctype="multipart/form-data" id="news_add" class="data-form">
                     <div class="row">
                         <div class="input-field col s2">
-                            <input id="title" type="text" class="validate" name="title">
+                            <input id="title" type="text" class="validate news_edit_input" name="title">
                             <label for="title">Titre</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="body" class="materialize-textarea validate" name="body"></textarea>
-                            <label for="body">Corps</label>
+                        <div class="input-field col s10">
+                            <textarea id="content" class="materialize-textarea validate news_edit_input" name="body"></textarea>
+                            <label for="content">Corps</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <input id="title" type="text" class="validate news_edit_input" name="author">
+                            <label for="author">Auteur</label>
                         </div>
                     </div>
-
+                    <input type="text" name="id" class="news_edit_input" hidden>
                     <div class="modal-footer">
                         <a href="#" class="btn modal-close waves-effect waves-red">Annuler</a>
                         <button type="submit" class="modal-action  waves-effect btn green " name="action">Ajouter<i
                                     class="material-icons right">add</i></button>
                     </div>
+                    @csrf
                 </form>
             </div>
 
         </div>
-    </div>
-
-    <!-- MODAL QUOTE-->
-    <div id="quote_modal" class="modal bottom-sheet">
-        <div class="modal-content">
-            <h5>Editer la phrase du jour</h5>
-            <form method="post" action="script/quote_edit.php" enctype="multipart/form-data" id="quote_edit">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <textarea id="content" class="materialize-textarea validate" name="content"></textarea>
-                        <label for="content">Phrase du jour :</label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn modal-close waves-effect waves-red">Annuler</a>
-                    <button type="submit" class="modal-action  waves-effect btn green " name="action">Ajouter<i
-                                class="material-icons right">format_quote</i></button>
-                </div>
-            </form>
-        </div>
-
     </div>
 
 
@@ -162,5 +158,31 @@
             </form>
         </div>
     </div>
+    <!-- SUPPRESSION NEWS -->
+    <div id="news_modal_delete" class="modal">
+        <div class="modal-content">
+            <h4>Suppression d'une actualité</h4>
+            <p>Etes vous sur de vouloir supprimer cette entrée ?</p>
+            <form method="post" action="/newsDelete" enctype="multipart/form-data" id="delete_form" class="data-form-delete">
+                <input id="input_id" type="text" name="id" hidden>
+                @csrf
+                    <div class="modal-footer">
+                    <a href="#" class="btn modal-close waves-effect ">Annuler</a>
+                    <button type="submit" class="modal-action  waves-effect btn red " name="action" id="delete_submit">Supprimer<i class="material-icons right">delete</i></button>
+                    </div>
+            </form>
+        </div>
+    </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $(".news_edit_btn", this).on("click", function () {
+            var data = $(this).parents(".news_data").find(".input_data");
+            $.each(data, function (i, v) {
+                $($(".data-form .news_edit_input")[i]).val($(v).text());
+            });
+            Materialize.updateTextFields();
+        });
+    });
+</script>
 @endsection

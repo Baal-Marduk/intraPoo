@@ -19,21 +19,24 @@
 
 </head>
 <body><!-- HEADER -->
-<?php
-//include('modules/toast_alert.php'); // Includes Login Script
-?>
 
 
 <div class="navbar-fixed">
     <nav class="nav-extended white">
         <div class="nav-wrapper container">
-            <a id="logo-container" href="index" class="brand-logo"><img class="logo responsive-image" src="{{ asset('img/logoDS.png') }}"></a>
+            <a id="logo-container" href="/" class="brand-logo"><img class="logo responsive-image" src="{{ asset('img/logoDS.png') }}"></a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="http://192.168.15.22:8080/share/page/" target="_blank">Alfresco</a></li>
                 <li><a href="http://192.168.15.51:8085/support/index.php" target="_blank">Ticketing</a></li>
                 <li><a href="http://192.168.15.107/" target="_blank">Site DS</a></li>
-                <li><a class="modal-trigger" href="#login_modal"><i class="material-icons right deep-orange-text">lock</i>Admin</a></li>
+
+                @if(Auth::check())
+                <li><a class="modal-trigger" href="/logout"><i class="material-icons right deep-orange-text">exit_to_app</i>Déconnexion</a></li>
+                @else
+                <li><a class="modal-trigger" href="#login_modal"><i class="material-icons right deep-orange-text">person</i>Connexion</a></li>
+                @endif
+                
                
 
             </ul>
@@ -57,12 +60,12 @@
         </div>
     </nav>
 </div>
+<!--LOGIN MODAL -->
 <div id="login_modal" class="modal">
-<script src="js/scripts.js"></script>
     <div class="container modal-content">
         <h4>ADMINISTRATION</h4>
         <p>Entrez vos identifiants de connexion</p>
-        <form action="" method="post" id="login_form">
+        <form action="/login" method="post" id="login_form">
             <div class=" input-field row">
                 <i class="material-icons prefix">person</i>
                 <input id="username" type="text" class="" name="username" required>
@@ -75,7 +78,7 @@
             </div>
             <div class="modal-footer">
                 <a href="" class="btn modal-close waves-effect waves-blue indigo" >Annuler</a>
-                <a href="" target="_self" name="submit" class="btn modal-close waves-effect waves-orange deep-orange" type="submit"  id="login_submit" >Connexion</a>
+                <a href=""  name="submit" class="btn waves-effect waves-orange deep-orange" type="submit"  id="login_submit" >Connexion</a>
             </div>
             <input type='hidden' name='token' value="" />
     </form>
