@@ -16,12 +16,12 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
-        session_start();
+        
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             $_SESSION['toast'] = 'Vous êtes connecté!';
-            return redirect("/annuaire");
+            return redirect()->intended('/');
         } else {
             $_SESSION['toast'] = 'Identifiant ou mot de passe incorrect!';
         }

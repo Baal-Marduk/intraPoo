@@ -15,8 +15,8 @@
 
 // VIEWS 
 Route::get('/', 'WelcomeController@show');
-Route::get('/annuaire', 'UserController@show');
-Route::get('/documents', 'DocumentsController@show');
+
+
 
 //Route::get('/home', 'HomeController@index')->name('home');
 
@@ -27,6 +27,7 @@ Route::get('/documents', 'DocumentsController@show');
 
 
 // ANNUAIRE
+Route::get('/annuaire', 'UserController@show');
 Route::post('/userCreate', 'UserController@create');
 Route::put('/userUpdate', 'UserController@update');
 Route::post('/userDelete', 'UserController@delete');
@@ -39,6 +40,18 @@ Route::post('/newsDelete', 'WelcomeController@deleteNews');
 //LOGIN
 Route::post('/login','LoginController@authenticate');
 Route::post('/logout','LoginController@logout');
+
+//CATEGORIES
+Route::post('/categorieCreate', 'CategorieController@create');
+Route::put('/categorieUpdate', 'CategorieController@update');
+Route::post('/categorieDelete', 'CategorieController@delete');
+
+//DOCUMENTS
+Route::get('/documents', 'DocumentController@show');
+Route::post('/documentCreate', 'DocumentController@create');
+Route::put('/documentUpdate', 'DocumentController@update');
+Route::post('/documentDelete', 'DocumentController@delete');
+Route::post('/download/{$url}', 'DocumentController@download');
 
 
 
